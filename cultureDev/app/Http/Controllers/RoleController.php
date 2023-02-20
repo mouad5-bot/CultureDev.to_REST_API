@@ -8,6 +8,11 @@ use App\Http\Requests\UpdateRoleRequest;
 
 class RoleController extends Controller
 {
+    // public function __construct()
+    // {
+    //     $this->middleware('auth:api');
+    // }
+
     /**
      * Display a listing of the resource.
      *
@@ -15,7 +20,12 @@ class RoleController extends Controller
      */
     public function index()
     {
-        //
+        $roles = Role::orderBy('id')->get();
+
+        return response()->json([
+            'status' => 'success',
+            'roles' => $roles
+        ]);
     }
 
     /**
@@ -36,7 +46,14 @@ class RoleController extends Controller
      */
     public function store(StoreRoleRequest $request)
     {
-        //
+            $role = Role::create($request->all());
+    
+            return response()->json([
+                'status' => true,
+                'message' => "Role Created successfully!",
+                'roles' => $role
+            ], 201);
+    //
     }
 
     /**
@@ -47,7 +64,11 @@ class RoleController extends Controller
      */
     public function show(Role $role)
     {
-        //
+            $role->find($role->id);
+            if (!$role) {
+                return response()->json(['message' => 'role not found'], 404);
+            }
+            return response()->json($role, 200);
     }
 
     /**
@@ -70,7 +91,18 @@ class RoleController extends Controller
      */
     public function update(UpdateRoleRequest $request, Role $role)
     {
-        //
+            $role->update($request->all());
+    
+            if (!$role) {
+                return response()->json(['message' => 'role not found'], 404);
+            }
+    
+            return response()->json([
+                'status' => true,
+                'message' => "role Updated successfully!",
+                'role' => $role
+            ], 200);
+    
     }
 
     /**
@@ -81,6 +113,17 @@ class RoleController extends Controller
      */
     public function destroy(Role $role)
     {
-        //
-    }
+            $role->delete();
+    
+            if (!$role) {
+                return response()->json([
+                    'message' => 'role not found'
+                ], 404);
+            }
+    
+            return response()->json([
+                'status' => true,
+                'message' => 'role deleted successfully'
+            ], 200);
+        }
 }

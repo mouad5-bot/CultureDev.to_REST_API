@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->integer('article_id')->nullable(false);
             $table->integer('tag_id')->nullable(false);
-            $table->timestamps();
+            $table->timestamps(); 
         });
     }
 
