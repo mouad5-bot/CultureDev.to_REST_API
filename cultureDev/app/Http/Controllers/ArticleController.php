@@ -8,6 +8,11 @@ use App\Http\Requests\UpdateArticleRequest;
 
 class ArticleController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth:api');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -15,9 +20,13 @@ class ArticleController extends Controller
      */
     public function index()
     {
-        //
-    }
+        $articles = Article::orderBy('id')->get();
 
+        return response()->json([
+            'status' => 'success',
+            'articles' => $articles
+        ]);
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -36,8 +45,15 @@ class ArticleController extends Controller
      */
     public function store(StoreArticleRequest $request)
     {
-        //
+        $article = Article::create($request->all());
+
+        return response()->json([
+            'status' => true,
+            'message' => "Article Created successfully!",
+            'article' => $article
+        ], 201);
     }
+
 
     /**
      * Display the specified resource.
@@ -47,7 +63,11 @@ class ArticleController extends Controller
      */
     public function show(Article $article)
     {
-        //
+        $article->find($article->id);
+        if (!$article) {
+            return response()->json(['message' => 'Article not found'], 404);
+        }
+        return response()->json($article, 200);
     }
 
     /**
@@ -70,8 +90,18 @@ class ArticleController extends Controller
      */
     public function update(UpdateArticleRequest $request, Article $article)
     {
-        //
+        $article->update($request->all());
+        if (!$article) {
+            return response()->json(['message' => 'Article not found'], 404);
+        }
+
+        return response()->json([
+            'status' => true,
+            'message' => "Article Updated successfully!",
+            'article' => $article
+        ], 200);
     }
+
 
     /**
      * Remove the specified resource from storage.
@@ -81,6 +111,17 @@ class ArticleController extends Controller
      */
     public function destroy(Article $article)
     {
-        //
+        $article->delete();
+
+        if (!$article) {
+            return response()->json([
+                'message' => 'Article not found'
+            ], 404);
+        }
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Article deleted successfully'
+        ], 200);
     }
 }
