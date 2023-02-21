@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\ArticleController ;
 use App\Http\Controllers\CommentController;
@@ -31,6 +32,7 @@ Route::controller(AuthController::class)->group(function () {
     Route::post('logout', 'logout');
     Route::post('refresh', 'refresh');
 });
+Route::apiResource('categories', CategoryController::class);
 
 Route::apiResource('articles', ArticleController::class)->except('create','edit');
 Route::apiResource('roles', RoleController::class)->except('create','edit');
