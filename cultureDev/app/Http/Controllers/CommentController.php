@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Comment;
 use App\Http\Requests\StoreCommentRequest;
 use App\Http\Requests\UpdateCommentRequest;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Response;
 
 class CommentController extends Controller
 {
@@ -31,29 +33,43 @@ class CommentController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StoreCommentRequest  $request
-     * @return \Illuminate\Http\Response
+     * @param StoreCommentRequest $request
+     * @return JsonResponse
      */
-    public function store(StoreCommentRequest $request)
+    public function store(StoreCommentRequest $request): JsonResponse
     {
-        //
+        $comment = Comment::create($request->all());
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Successfully save comment',
+            'data' => $comment,
+        ]);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Comment  $comment
-     * @return \Illuminate\Http\Response
+     * @param int $comment
+     * @return JsonResponse
      */
-    public function show(Comment $comment)
+
+    // TODO : khas nbdl had l param l type article 7it kndwz id dyal article wnjib comments dyalo
+    public function show(int $comment): JsonResponse
     {
-        //
+        $comments = Comment::where('article_id', $comment)->get();
+
+        return response()->json([
+            'status' => 'success',
+            'length' => count($comments),
+            'data' => $comments,
+        ]);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Comment  $comment
+     * @param Comment $comment
      * @return \Illuminate\Http\Response
      */
     public function edit(Comment $comment)
@@ -64,23 +80,53 @@ class CommentController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\UpdateCommentRequest  $request
-     * @param  \App\Models\Comment  $comment
-     * @return \Illuminate\Http\Response
+     * @param UpdateCommentRequest $request
+     * @param int $comment
+     * @return JsonResponse
      */
-    public function update(UpdateCommentRequest $request, Comment $comment)
+    public function update(UpdateCommentRequest $request, int $comment): JsonResponse
     {
-        //
+        $comment = Comment::find($comment);
+
+        if(!$comment){
+            return response()->json([
+                'status' => 'error',
+                'message' => 'comment not found'
+            ], 404);
+        }
+
+        $comment->update($request->all());
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Successfully update comment',
+            'data' => $comment,
+        ]);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Comment  $comment
-     * @return \Illuminate\Http\Response
+     * @param int $comment
+     * @return JsonResponse
      */
-    public function destroy(Comment $comment)
+    public function destroy(int $comment): JsonResponse
     {
-        //
+        $comment = Comment::find($comment);
+
+        if(!$comment){
+            return response()->json([
+                'status' => 'error',
+                'message' => 'comment not found'
+            ], 404);
+        }
+
+        $comment->delete();
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Successfully delete comment',
+            'data' => $comment,
+        ]);
     }
 }
