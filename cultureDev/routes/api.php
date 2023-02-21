@@ -25,6 +25,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+// Tags
 Route::resource('tags', TagController::class);
 Route::get('tags', [TagController::class, 'index']);
 Route::get('/tags/{tag}', [TagController::class, 'show']);
