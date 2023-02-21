@@ -15,8 +15,23 @@ return new class extends Migration
     {
         Schema::create('article_tags', function (Blueprint $table) {
             $table->id();
-            $table->integer('article_id')->nullable(false);
-            $table->integer('tag_id')->nullable(false);
+            $table->integer('article_id')  
+                    ->unsigned()  
+                    ->index();  
+            $table->foreign('article_id')  
+                    ->references('id')  
+                    ->on('articles')  
+                    ->onDelete('cascade');  
+
+            $table->integer('tag_id')  
+                    ->unsigned()  
+                    ->index();  
+            $table->foreign('tag_id')  
+                    ->references('id')  
+                    ->on('tags')  
+                    ->onDelete('cascade');  
+
+            $table->primary(['article_id', 'tag_id']);  
             $table->timestamps(); 
         });
     }
@@ -30,4 +45,4 @@ return new class extends Migration
     {
         Schema::dropIfExists('article_tags');
     }
-};
+};  
