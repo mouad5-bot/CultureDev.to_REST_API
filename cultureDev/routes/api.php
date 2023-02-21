@@ -34,6 +34,7 @@ Route::controller(AuthController::class)->group(function () {
 });
 Route::apiResource('categories', CategoryController::class);
 
+// endpoints for Article ['get all Articles', 'get specific article', 'update article's' , 'delete article']
 Route::apiResource('articles', ArticleController::class)->except('create','edit');
 Route::apiResource('roles', RoleController::class)->except('create','edit');
 
