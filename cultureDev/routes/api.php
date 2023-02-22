@@ -35,7 +35,7 @@ Route::controller(AuthController::class)->group(function () {
     Route::post('refresh', 'refresh');
 });
 
-Route::apiResource('categories', CategoryController::class);
+Route::apiResource('categories', CategoryController::class)->except('create','edit');
 Route::get('/articles/filter', [ArticleFilterController::class, 'filter']);
 
 
