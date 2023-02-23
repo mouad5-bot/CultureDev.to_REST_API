@@ -19,16 +19,12 @@ return new class extends Migration
                 $table->date('date_published')->nullable(false);
                 $table->text('description')->nullable(false);
                 $table->unsignedBigInteger('category_id')->nullable(false);
-                $table->unsignedBigInteger('author_id')->nullable(false);
                 $table->unsignedBigInteger('user_id')->nullable(false);
                 $table->foreign('category_id')
                     ->references('id')
                     ->on('categories')
                     ->onDelete('cascade');
-                $table->foreign('author_id')
-                    ->references('id')
-                    ->on('users')
-                    ->onDelete('cascade');
+            
                 $table->foreign('user_id')
                     ->references('id')
                     ->on('users')

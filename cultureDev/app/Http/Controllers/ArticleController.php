@@ -5,13 +5,14 @@ namespace App\Http\Controllers;
 use App\Models\Article;
 use App\Http\Requests\StoreArticleRequest;
 use App\Http\Requests\UpdateArticleRequest;
+use Illuminate\Support\Facades\Auth;
 
 class ArticleController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth:api');
-    }
+    // public function __construct()
+    // {
+    //     $this->middleware('auth:api');
+    // }
 
     /**
      * Display a listing of the resource.
@@ -90,7 +91,17 @@ class ArticleController extends Controller
      */
     public function update(UpdateArticleRequest $request, Article $article)
     {
+        $user = Auth::user();
+
+        if(!$user->can('edit All article') && $article->user_id != $user->id){
+            return response()->json([
+                'status' => false,
+                'message' => "You don't have the permission for edit this article!"
+            ], 200);
+        }
+
         $article->update($request->all());
+
         if (!$article) {
             return response()->json(['message' => 'Article not found'], 404);
         }
@@ -100,6 +111,7 @@ class ArticleController extends Controller
             'message' => "Article Updated successfully!",
             'article' => $article
         ], 200);
+        
     }
 
 
@@ -111,17 +123,23 @@ class ArticleController extends Controller
      */
     public function destroy(Article $article)
     {
-        $article->delete();
+        $user = Auth::user();
 
-        if (!$article) {
+        if(!$user->can('delete All article') && $article->user_id != $user->id){
             return response()->json([
-                'message' => 'Article not found'
-            ], 404);
+                'status' => false,
+                'message' => "You don't have the permission for delete this article!"
+            ], 200);
         }
 
+        if (!$article) {
+            return response()->json(['message' => 'Article not found'], 404);
+        }
+        $article->delete();
         return response()->json([
             'status' => true,
             'message' => 'Article deleted successfully'
         ], 200);
+     
     }
 }
