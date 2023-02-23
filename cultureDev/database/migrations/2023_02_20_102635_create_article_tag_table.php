@@ -14,24 +14,21 @@ return new class extends Migration
     public function up()
     {
         Schema::create('article_tags', function (Blueprint $table){
+        Schema::create('article_tag', function (Blueprint $table) {
             $table->id();
-            $table->integer('article_id')  
-                    ->unsigned()  
-                    ->index();  
+            $table->unsignedBigInteger('article_id')  
+                    ->nullable();
+            $table->unsignedBigInteger('tag_id')  
+                    ->nullable();
             $table->foreign('article_id')  
                     ->references('id')  
                     ->on('articles')  
                     ->onDelete('cascade');  
-
-            $table->integer('tag_id')  
-                    ->unsigned()  
-                    ->index();  
             $table->foreign('tag_id')  
                     ->references('id')  
                     ->on('tags')  
-                    ->onDelete('cascade');  
-
-            $table->primary(['article_id', 'tag_id']);  
+                    ->onDelete('cascade');
+              
             $table->timestamps(); 
         });
     }
@@ -43,6 +40,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('article_tags');
+        Schema::dropIfExists('article_tag');
     }
 };  

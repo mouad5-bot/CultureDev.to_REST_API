@@ -9,7 +9,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CommentController;
-
+use App\Http\Controllers\ArticleFilterController;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,7 +36,10 @@ Route::controller(AuthController::class)->group(function () {
     Route::post('forgotPassword', 'forgotPassword');
     Route::post('resetPassword', 'resetPassword')->name('password.reset');
 });
-Route::apiResource('categories', CategoryController::class);
+
+Route::apiResource('categories', CategoryController::class)->except('create','edit');
+Route::get('/articles/filter', [ArticleFilterController::class, 'filter']);
+
 
 Route::apiResource('articles', ArticleController::class)->except('create','edit');
 Route::apiResource('roles', RoleController::class)->except('create','edit');
