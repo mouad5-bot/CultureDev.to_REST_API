@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -20,6 +22,13 @@ class DatabaseSeeder extends Seeder
         ]);
     
         // \App\Models\User::factory(10)->create();
+        $this->call(RoleSeeder::class);
+        $this->call(CategorySeeder::class);
+        User::factory(5)->create();
+        $this->call(ArticleSeeder::class);
+        $this->call(CommentSeeder::class);
+        $this->call(TagSeeder::class);
+        $this->call(ArticleTagSeeder::class);
 
         // \App\Models\User::factory()->create([
         //     'name' => 'Test User',
