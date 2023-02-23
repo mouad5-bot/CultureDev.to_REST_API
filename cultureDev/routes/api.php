@@ -51,8 +51,3 @@ Route::match(['put', 'patch'],'user/pass/{user}', [UserController::class, 'updat
 // endpoints for comment ['add comment', 'get comments for specific article', 'update' , 'delete']
 Route::apiResource('comment', CommentController::class)->except(['index']);
 Route::apiResource('tags', TagController::class);
-Route::get('tags', [TagController::class, 'index']);
-Route::get('/tags/{tag}', [TagController::class, 'show']);
-Route::post('/tags', [TagController::class, 'store']);
-Route::put('/tags/{tag}', [TagController::class, 'update']);
-Route::delete('/tags/{tag}', [TagController::class, 'delete']);
