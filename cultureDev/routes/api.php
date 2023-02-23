@@ -1,14 +1,15 @@
 <?php
 
-use App\Http\Controllers\AuthController;
-use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\RoleController;
-use App\Http\Controllers\ArticleController ;
-use App\Http\Controllers\CommentController;
-use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TagController;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\RoleController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CommentController;
+use App\Http\Controllers\ArticleFilterController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,8 +33,13 @@ Route::controller(AuthController::class)->group(function () {
     Route::post('register', 'register');
     Route::post('logout', 'logout');
     Route::post('refresh', 'refresh');
+    Route::post('forgotPassword', 'forgotPassword');
+    Route::post('resetPassword', 'resetPassword')->name('password.reset');
 });
-Route::apiResource('categories', CategoryController::class);
+
+Route::apiResource('categories', CategoryController::class)->except('create','edit');
+Route::get('/articles/filter', [ArticleFilterController::class, 'filter']);
+
 
 Route::apiResource('articles', ArticleController::class)->except('create','edit');
 Route::apiResource('roles', RoleController::class)->except('create','edit');
@@ -47,10 +53,4 @@ Route::match(['put', 'patch'],'user/pass/{user}', [UserController::class, 'updat
 
 // endpoints for comment ['add comment', 'get comments for specific article', 'update' , 'delete']
 Route::apiResource('comment', CommentController::class)->except(['index']);
-// Tags
-Route::resource('tags', TagController::class);
-Route::get('tags', [TagController::class, 'index']);
-Route::get('/tags/{tag}', [TagController::class, 'show']);
-Route::post('/tags', [TagController::class, 'store']);
-Route::put('/tags/{tag}', [TagController::class, 'update']);
-Route::delete('/tags/{tag}', [TagController::class, 'delete']);
+Route::apiResource('tags', TagController::class);

@@ -39,6 +39,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('article_tags');
+        Schema::dropIfExists('article_tag');
     }
 };  
