@@ -15,7 +15,7 @@ class Article extends Model
         'category_id',
         'auteur_id'
     ];
-    
+
     public function user()
     {
         return $this->belongsTo(User::class);
@@ -34,9 +34,9 @@ class Article extends Model
         // return $this->belongsTo('App\category');
     }
 
-    public function tages()  
-    {  
-        // Un article appartient à une ou plusieurs tages. 
-        return $this->belongsToMany(Tag::class);  
-    }  
+    public function tags()
+    {
+        // Un article appartient à une ou plusieurs tages.
+        return $this->belongsToMany(Tag::class);
+    }
 }
