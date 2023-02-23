@@ -12,25 +12,34 @@ return new class extends Migration
      * @return void
      */
     public function up()
-    {
-        Schema::create('articles', function (Blueprint $table) {
-            $table->id();
-            $table->string('title', 30)->nullable(false);
-            $table->date('date_published')->nullable(false);
-            $table->text('description')->nullable(false);
-            $table->integer('category_id')->nullable(false);
-            $table->integer('author_id')->nullable(false);
-            $table->timestamps();
-        });
-    }
+        {
+            Schema::create('articles', function (Blueprint $table) {
+                $table->id();
+                $table->string('title', 30)->nullable(false);
+                $table->date('date_published')->nullable(false);
+                $table->text('description')->nullable(false);
+                $table->unsignedBigInteger('category_id')->nullable(false);
+                $table->unsignedBigInteger('author_id')->nullable(false);
+                $table->unsignedBigInteger('user_id')->nullable(false);
+                $table->foreign('category_id')
+                    ->references('id')
+                    ->on('categories')
+                    ->onDelete('cascade');
+                $table->foreign('author_id')
+                    ->references('id')
+                    ->on('users')
+                    ->onDelete('cascade');
+                $table->foreign('user_id')
+                    ->references('id')
+                    ->on('users')
+                    ->onDelete('cascade');
+                $table->timestamps();
+            });
+        }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        Schema::dropIfExists('articles');
-    }
+        public function down()
+        {
+            Schema::dropIfExists('articles');
+        }
+
 };
