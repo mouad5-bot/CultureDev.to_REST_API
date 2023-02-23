@@ -2,7 +2,7 @@
 
 namespace App\Policies;
 
-use App\Models\Article_tag;
+use App\Models\ArticleTag;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
@@ -25,10 +25,10 @@ class ArticleTagPolicy
      * Determine whether the user can view the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Article_tag  $articleTag
+     * @param  \App\Models\ArticleTag  $articleTag
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(User $user, Article_tag $articleTag)
+    public function view(User $user, ArticleTag $articleTag)
     {
         //
     }
@@ -48,10 +48,10 @@ class ArticleTagPolicy
      * Determine whether the user can update the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Article_tag  $articleTag
+     * @param  \App\Models\ArticleTag  $articleTag
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(User $user, Article_tag $articleTag)
+    public function update(User $user, ArticleTag $articleTag)
     {
         //
     }
@@ -60,10 +60,10 @@ class ArticleTagPolicy
      * Determine whether the user can delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Article_tag  $articleTag
+     * @param  \App\Models\ArticleTag  $articleTag
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete(User $user, Article_tag $articleTag)
+    public function delete(User $user, ArticleTag $articleTag)
     {
         //
     }
@@ -72,10 +72,10 @@ class ArticleTagPolicy
      * Determine whether the user can restore the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Article_tag  $articleTag
+     * @param  \App\Models\ArticleTag  $articleTag
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function restore(User $user, Article_tag $articleTag)
+    public function restore(User $user, ArticleTag $articleTag)
     {
         //
     }
@@ -84,10 +84,10 @@ class ArticleTagPolicy
      * Determine whether the user can permanently delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Article_tag  $articleTag
+     * @param  \App\Models\ArticleTag  $articleTag
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function forceDelete(User $user, Article_tag $articleTag)
+    public function forceDelete(User $user, ArticleTag $articleTag)
     {
         //
     }
