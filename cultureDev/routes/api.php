@@ -62,7 +62,7 @@ Route::controller(AuthController::class)->group(function () {
             Route::get('', 'index')->middleware(['permission:view article']);
             Route::post('', 'store')->middleware(['permission:add article']);
             Route::get('/{article}', 'show')->middleware(['permission:view article']);
-            Route::put('/{article}', 'update')->middleware(['permission:edit my article|edit all article']);
+            Route::put('/{article}', 'update')->middleware(['permission:edit My article|edit All article']);
             Route::delete('/{article}', 'destroy')->middleware(['permission:delete My article | delete All article']);
         });
         Route::group(['controller' => UserController::class,'prefix' => 'users'], function () {
