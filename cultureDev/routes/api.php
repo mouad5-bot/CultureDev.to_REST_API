@@ -43,11 +43,10 @@ Route::controller(AuthController::class)->group(function () {
             Route::delete('/{category}', 'destroy')->middleware(['permission:delete category']);
         });
         Route::group(['controller' => CommentController::class,'prefix'=>'comments'], function () {
-            Route::get('','index')->middleware(['permission:view comment']);
             Route::post('', 'store')->middleware(['permission:add comment']);
             Route::get('/{comment}', 'show')->middleware(['permission:view comment']);
-            Route::put('/{comment}', 'update')->middleware(['permission:edit comment']);
-            Route::delete('/{comment}', 'destroy')->middleware(['permission:delete comment']);
+            Route::put('/{comment}', 'update')->middleware(['permission:edit comments|edit comment']);
+            Route::delete('/{comment}', 'destroy')->middleware(['permission:delete comments|delete comment']);
         });
         Route::group(['controller' => TagController::class ,'prefix'=>'tags'], function () {
             Route::get('', 'index')->middleware(['permission:view tag']);

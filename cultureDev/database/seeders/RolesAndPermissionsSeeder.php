@@ -27,10 +27,12 @@ class RolesAndPermissionsSeeder extends Seeder
         $deleteCategory='delete category';
         $viewCategory='view category';
 
-        $addComment='add comment';
-        $editComment='edit comment';
-        $deleteComment='delete comment';
         $viewComment='view comment';
+        $addComment='add comment';
+        $editComments='edit comments';
+        $editComment='edit comment';
+        $deleteComments='delete comments';
+        $deleteComment='delete comment';
 
         $addTag='add tag';
         $editTag='edit tag';
@@ -59,10 +61,12 @@ class RolesAndPermissionsSeeder extends Seeder
         Permission::create(['name' => $deleteCategory]);
         Permission::create(['name' => $viewCategory]);
 
-        Permission::create(['name' => $addComment]);
-        Permission::create(['name' => $editComment]);
-        Permission::create(['name' => $deleteComment]);
         Permission::create(['name' => $viewComment]);
+        Permission::create(['name' => $addComment]);
+        Permission::create(['name' => $editComments]);
+        Permission::create(['name' => $editComment]);
+        Permission::create(['name' => $deleteComments]);
+        Permission::create(['name' => $deleteComment]);
 
         Permission::create(['name' => $addTag]);
         Permission::create(['name' => $editTag]);
@@ -82,18 +86,28 @@ class RolesAndPermissionsSeeder extends Seeder
             $editMyActicle,
             $deleteMyActicle,
             $viewArticle,
+
+            // permission comment controller
             $viewComment,
-            $deleteComment,
             $addComment,
+            $editComment,
+            $deleteComment,
+
+            // permission user controller
             $viewUser,
             $editUser,
             $deleteUser,
         ]);
         Role::create(['name' => 'user'])->givePermissionTo([
             $viewArticle,
+
+            // permission comment controller
             $viewComment,
-            $deleteComment,
             $addComment,
+            $editComment,
+            $deleteComment,
+
+            // permission user controller
             $viewUser,
             $editUser,
             $deleteUser,
