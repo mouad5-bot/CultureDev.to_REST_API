@@ -20,11 +20,8 @@ class DatabaseSeeder extends Seeder
             RolesAndPermissionsSeeder::class,
             UserSeeder::class,
         ]);
-    
-        // \App\Models\User::factory(10)->create();
-        $this->call(RoleSeeder::class);
+
         $this->call(CategorySeeder::class);
-        User::factory(5)->create();
         $this->call(ArticleSeeder::class);
         $this->call(CommentSeeder::class);
         $this->call(TagSeeder::class);

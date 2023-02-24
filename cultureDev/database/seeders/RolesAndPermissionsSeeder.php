@@ -9,7 +9,7 @@ use Spatie\Permission\Models\Permission;
 class RolesAndPermissionsSeeder extends Seeder
 {
     /**
-     * Run the database seeds. 
+     * Run the database seeds.
      *
      * @return void
      */
@@ -41,7 +41,7 @@ class RolesAndPermissionsSeeder extends Seeder
         $editUser='edit user';
         $deleteUser='delete user';
         $viewUser='view user';
-        
+
          // Reset cached roles and permissions
          app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
 
