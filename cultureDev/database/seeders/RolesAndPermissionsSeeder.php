@@ -37,10 +37,12 @@ class RolesAndPermissionsSeeder extends Seeder
         $deleteTag='delete tag';
         $viewTag='view tag';
 
-        $addUser='add user';
-        $editUser='edit user';
-        $deleteUser='delete user';
+        $viewUsers='view users';
         $viewUser='view user';
+        $editUsers='edit users';
+        $editUser='edit user';
+        $deleteUsers='delete users';
+        $deleteUser='delete user';
 
          // Reset cached roles and permissions
          app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
@@ -67,10 +69,12 @@ class RolesAndPermissionsSeeder extends Seeder
         Permission::create(['name' => $deleteTag]);
         Permission::create(['name' => $viewTag]);
 
-        Permission::create(['name' => $addUser]);
-        Permission::create(['name' => $editUser]);
-        Permission::create(['name' => $deleteUser]);
+        Permission::create(['name' => $viewUsers]);
         Permission::create(['name' => $viewUser]);
+        Permission::create(['name' => $editUsers]);
+        Permission::create(['name' => $editUser]);
+        Permission::create(['name' => $deleteUsers]);
+        Permission::create(['name' => $deleteUser]);
 
         Role::create(['name' => 'admin'])->givePermissionTo(Permission::all());
         Role::create(['name' => 'author'])->givePermissionTo([
@@ -81,12 +85,18 @@ class RolesAndPermissionsSeeder extends Seeder
             $viewComment,
             $deleteComment,
             $addComment,
+            $viewUser,
+            $editUser,
+            $deleteUser,
         ]);
         Role::create(['name' => 'user'])->givePermissionTo([
             $viewArticle,
             $viewComment,
             $deleteComment,
             $addComment,
+            $viewUser,
+            $editUser,
+            $deleteUser,
         ]);
     }
 }

@@ -64,12 +64,11 @@ Route::controller(AuthController::class)->group(function () {
             Route::delete('/{article}', 'destroy')->middleware(['permission:delete My article | delete All article']);
         });
         Route::group(['controller' => UserController::class,'prefix' => 'users'], function () {
-            Route::get('', 'index')->middleware(['permission:view user']);
-            Route::post('', 'store')->middleware(['permission:add user']);
+            Route::get('', 'index')->middleware(['permission:view users']);
             Route::get('/{user}', 'show')->middleware(['permission:view user']);
-            Route::put('/{user}', 'update')->middleware(['permission:edit user']);
-            Route::delete('/{user}', 'destroy')->middleware(['permission:delete user']);
-            Route::put('/pass/{user}', [UserController::class, 'update_password'])->middleware(['permission:edit user']);
+            Route::put('/{user}', 'update')->middleware(['permission:edit users|edit user']);
+            Route::delete('/{user}', 'destroy')->middleware(['permission:delete users|delete user']);
+            Route::put('/pass/{user}', 'update_password')->middleware(['permission:edit users|edit user']);
         });
     });
 });

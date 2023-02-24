@@ -5,13 +5,14 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth:api');
+
     }
 
     /**
@@ -68,6 +69,13 @@ class UserController extends Controller
             ], 404);
         }
 
+        if(Auth::user()->cannot('edit users') && Auth::user()->id != $user->id){
+            return response()->json([
+                'status' => 'success',
+                'message' => 'user does not have the right permissions'
+            ], 403);
+        }
+
         return response()->json([
             'status' => 'success',
             'data' => $user,
@@ -103,6 +111,13 @@ class UserController extends Controller
             ], 404);
         }
 
+        if(Auth::user()->cannot('edit users') && Auth::user()->id != $user->id){
+            return response()->json([
+                'status' => 'success',
+                'message' => 'user does not have the right permissions'
+            ], 403);
+        }
+
         $user->update($request->all());
 
         return response()->json([
@@ -129,6 +144,13 @@ class UserController extends Controller
                 'status' => 'error',
                 'message' => 'no user found',
             ]);
+        }
+
+        if(Auth::user()->cannot('edit users') && Auth::user()->id != $user->id){
+            return response()->json([
+                'status' => 'success',
+                'message' => 'user does not have the right permissions'
+            ], 403);
         }
 
         if (Hash::check($request->old_password, $user->password)) {
@@ -162,6 +184,13 @@ class UserController extends Controller
                 'status' => 'error',
                 'message' => 'user not found',
             ], 404);
+        }
+
+        if(Auth::user()->cannot('delete users') && Auth::user()->id != $user->id){
+            return response()->json([
+                'status' => 'success',
+                'message' => 'user does not have the right permissions'
+            ], 403);
         }
 
         $user->delete();
