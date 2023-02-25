@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Article_tag;
+use App\Models\ArticleTag;
 use App\Http\Requests\StoreArticle_tagRequest;
 use App\Http\Requests\UpdateArticle_tagRequest;
 
@@ -42,10 +42,10 @@ class ArticleTagController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Article_tag  $article_tag
+     * @param  \App\Models\ArticleTag  $article_tag
      * @return \Illuminate\Http\Response
      */
-    public function show(Article_tag $article_tag)
+    public function show(ArticleTag $article_tag)
     {
         //
     }
@@ -53,10 +53,10 @@ class ArticleTagController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Article_tag  $article_tag
+     * @param  \App\Models\ArticleTag  $article_tag
      * @return \Illuminate\Http\Response
      */
-    public function edit(Article_tag $article_tag)
+    public function edit(ArticleTag $article_tag)
     {
         //
     }
@@ -65,10 +65,10 @@ class ArticleTagController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \App\Http\Requests\UpdateArticle_tagRequest  $request
-     * @param  \App\Models\Article_tag  $article_tag
+     * @param  \App\Models\ArticleTag  $article_tag
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateArticle_tagRequest $request, Article_tag $article_tag)
+    public function update(UpdateArticle_tagRequest $request, ArticleTag $article_tag)
     {
         //
     }
@@ -76,10 +76,10 @@ class ArticleTagController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Article_tag  $article_tag
+     * @param  \App\Models\ArticleTag  $article_tag
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Article_tag $article_tag)
+    public function destroy(ArticleTag $article_tag)
     {
         //
     }

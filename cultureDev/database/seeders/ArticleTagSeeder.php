@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\ArticleTag;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -14,6 +15,6 @@ class ArticleTagSeeder extends Seeder
      */
     public function run()
     {
-        //
+        ArticleTag::factory()->count(30)->create();
     }
 }

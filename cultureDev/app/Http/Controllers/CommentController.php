@@ -7,6 +7,7 @@ use App\Http\Requests\StoreCommentRequest;
 use App\Http\Requests\UpdateCommentRequest;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
 
 class CommentController extends Controller
 {
@@ -38,7 +39,13 @@ class CommentController extends Controller
      */
     public function store(StoreCommentRequest $request): JsonResponse
     {
-        $comment = Comment::create($request->all());
+        $credentials = [
+            'comment' => $request->comment,
+            'article_id' => $request->article_id,
+            'user_id' => Auth::user()->id,
+        ];
+
+        $comment = Comment::create($credentials);
 
         return response()->json([
             'status' => 'success',
@@ -50,19 +57,16 @@ class CommentController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param int $comment
+     * @param int $id
      * @return JsonResponse
      */
-
-    // TODO : khas nbdl had l param l type article 7it kndwz id dyal article wnjib comments dyalo
-    public function show(int $comment): JsonResponse
+    public function show(int $id): JsonResponse
     {
-        $comments = Comment::where('article_id', $comment)->get();
+        $comment = Comment::find($id);
 
         return response()->json([
             'status' => 'success',
-            'length' => count($comments),
-            'data' => $comments,
+            'data' => $comment,
         ]);
     }
 
@@ -88,11 +92,18 @@ class CommentController extends Controller
     {
         $comment = Comment::find($comment);
 
-        if(!$comment){
+        if (!$comment) {
             return response()->json([
                 'status' => 'error',
                 'message' => 'comment not found'
             ], 404);
+        }
+
+        if(Auth::user()->cannot('edit comments') && Auth::user()->id != $comment->user_id){
+            return response()->json([
+                'status' => 'success',
+                'message' => 'user does not have the right permissions'
+            ], 403);
         }
 
         $comment->update($request->all());
@@ -114,11 +125,18 @@ class CommentController extends Controller
     {
         $comment = Comment::find($comment);
 
-        if(!$comment){
+        if (!$comment) {
             return response()->json([
                 'status' => 'error',
                 'message' => 'comment not found'
             ], 404);
+        }
+
+        if(Auth::user()->cannot('delete comments') && Auth::user()->id != $comment->user_id){
+            return response()->json([
+                'status' => 'success',
+                'message' => 'user does not have the right permissions'
+            ], 403);
         }
 
         $comment->delete();
