@@ -34,10 +34,10 @@ class ArticleTagController extends Controller
      * @param  \App\Http\Requests\StoreArticle_tagRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreArticle_tagRequest $request)
-    {
-        //
-    }
+    // public function store(StoreArticle_tagRequest $request)
+    // {
+    //     //
+    // }
 
     /**
      * Display the specified resource.
