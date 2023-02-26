@@ -28,7 +28,6 @@ class UpdateArticleRequest extends FormRequest
             'date_published' => 'required|date',
             'description' => 'required|min:10',
             'category_id' => 'required|integer',
-            'auteur_id' => 'required|integer',
         ];
     }
 }

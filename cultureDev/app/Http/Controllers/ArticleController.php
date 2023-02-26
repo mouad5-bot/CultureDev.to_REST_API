@@ -6,12 +6,14 @@ use App\Models\Article;
 use App\Http\Requests\StoreArticleRequest;
 use App\Http\Requests\UpdateArticleRequest;
 use Illuminate\Support\Facades\Auth;
+use PHPOpenSourceSaver\JWTAuth\Facades\JWTAuth;
 
 class ArticleController extends Controller
 {
+    
     // public function __construct()
     // {
-    //     $this->middleware('auth:api');
+    //     $this->middleware('role:admin');
     // }
 
     /**
@@ -46,8 +48,9 @@ class ArticleController extends Controller
      */
     public function store(StoreArticleRequest $request)
     {
-        $article = Article::create($request->all());
-
+        $user = Auth::user();
+       $article= $user->articles()->create($request->all());
+        // $article = Article::create($request->all());
         return response()->json([
             'status' => true,
             'message' => "Article Created successfully!",

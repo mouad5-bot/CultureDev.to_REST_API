@@ -57,11 +57,11 @@ Route::controller(AuthController::class)->group(function () {
             Route::delete('/{tag}', 'destroy')->middleware(['permission:delete tag']);
         });
         Route::group(['controller' => ArticleController::class, 'prefix' => 'articles'], function () {
-            Route::get('', 'index')->middleware(['permission:view article']);
+            Route::get('', 'index')->middleware(['permission:view articles']);
             Route::post('', 'store')->middleware(['permission:add article']);
-            Route::get('/{article}', 'show')->middleware(['permission:view article']);
+            Route::get('/{article}', 'show')->middleware(['permission:view articles']);
             Route::put('/{article}', 'update')->middleware(['permission:edit My article|edit All article']);
-            Route::delete('/{article}', 'destroy')->middleware(['permission:delete My article | delete All article']);
+            Route::delete('/{article}', 'destroy')->middleware(['permission:delete My article|delete All article']);
         });
         Route::group(['controller' => UserController::class,'prefix' => 'users'], function () {
             Route::get('', 'index')->middleware(['permission:view users']);

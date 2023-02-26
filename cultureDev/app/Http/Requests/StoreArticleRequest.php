@@ -24,11 +24,10 @@ class StoreArticleRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => 'required|max:30',
+            'title' => 'required',
             'date_published' => 'required|date',
             'description' => 'required|min:10',
-            'category_id' => 'required|integer',
-            'auteur_id' => 'required|integer',
+            'category_id' => 'required|integer'
         ];
     }
 }
