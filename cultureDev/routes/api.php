@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ArticleTagController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TagController;
@@ -57,6 +58,11 @@ Route::controller(AuthController::class)->group(function () {
             Route::get('/{tag}', 'show')->middleware(['permission:view tag']);
             Route::put('/{tag}', 'update')->middleware(['permission:edit tag']);
             Route::delete('/{tag}', 'destroy')->middleware(['permission:delete tag']);
+        });
+        Route::group(['controller' => ArticleTagController::class ,'prefix'=>'article_tag'], function () {
+            Route::post('/{article}', 'store')->middleware(['permission:add article']);
+            Route::get('/{article}', 'show')->middleware(['permission:view articles']);
+            Route::delete('/{article}', 'destroy')->middleware(['permission:delete My article|delete All article']);
         });
         Route::group(['controller' => ArticleController::class, 'prefix' => 'articles'], function () {
             Route::get('', 'index')->middleware(['permission:view articles']);
