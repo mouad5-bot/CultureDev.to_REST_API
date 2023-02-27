@@ -37,8 +37,6 @@ Route::controller(AuthController::class)->group(function () {
 
 Route::apiResource('categories', CategoryController::class)->except('create','edit');
 Route::get('/articles/filter', [ArticleFilterController::class, 'filter']);
-// Route::get('/articles/filter/FilterByCategory', [ArticleFilterController::class, 'FilterByCategory']);
-// Route::get('/articles//FilterByTag', [ArticleFilterController::class, 'FilterByTag']);
 
 
 Route::apiResource('articles', ArticleController::class)->except('create','edit');
