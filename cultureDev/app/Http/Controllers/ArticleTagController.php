@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Article;
 use App\Models\ArticleTag;
-use App\Http\Requests\StoreArticle_tagRequest;
 use App\Http\Requests\UpdateArticle_tagRequest;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
 
 class ArticleTagController extends Controller
 {
@@ -31,12 +34,22 @@ class ArticleTagController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StoreArticle_tagRequest  $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return Response
      */
-    public function store(StoreArticle_tagRequest $request)
+    public function store(Request $request, Article $article)
     {
-        //
+        $credentials = [
+          'article_id' => $article->id,
+          'tag_id' => $request->tag_id,
+        ];
+
+        ArticleTag::create($credentials);
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Tag added successfully'
+        ], 200);
     }
 
     /**
@@ -45,9 +58,13 @@ class ArticleTagController extends Controller
      * @param  \App\Models\ArticleTag  $article_tag
      * @return \Illuminate\Http\Response
      */
-    public function show(ArticleTag $article_tag)
+    public function show(Article $article)
     {
-        //
+        $article->tags;
+        return response()->json([
+            'status' => 'success',
+            'article' => $article,
+        ]);
     }
 
     /**
@@ -79,8 +96,24 @@ class ArticleTagController extends Controller
      * @param  \App\Models\ArticleTag  $article_tag
      * @return \Illuminate\Http\Response
      */
-    public function destroy(ArticleTag $article_tag)
+    public function destroy(Request $request, Article $article)
     {
-        //
+        $user = Auth::user();
+
+        if(!$user->can('delete All article') && $article->user_id != $user->id){
+            return response()->json([
+                'status' => false,
+                'message' => "You don't have the permission for delete this article!"
+            ], 200);
+        }
+
+        $tag = $article->tags->find($request->tag_id);
+
+        $tag->delete();
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Tag deleted successfully'
+        ], 200);
     }
 }
