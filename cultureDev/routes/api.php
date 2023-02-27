@@ -10,6 +10,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\ArticleFilterController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,6 +31,7 @@ Route::controller(AuthController::class)->group(function () {
     Route::post('login', 'login');
     Route::post('register', 'register');
     Route::middleware('auth:api')->group(function(){
+        Route::get('/articles/filter', [ArticleFilterController::class, 'filter']);
         Route::group(['middleware' => ['role:admin']], function () {
             Route::apiResource('roles', RoleController::class)->except('create','edit');
         });
@@ -78,3 +80,5 @@ Route::controller(AuthController::class)->group(function () {
         });
     });
 });
+
+
