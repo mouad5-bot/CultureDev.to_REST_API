@@ -1,4 +1,4 @@
-# D-velopper-une-REST-API
+# Developper une REST API
 
 ## Objectif :
 
@@ -11,7 +11,7 @@ Nous recherchons une équipe de développeur pour développer une REST API - Cul
 <li>Création, édition, suppression et consultation de tags. </li>
 <li>Création, édition, suppression et consultation de commentaires.</li>
 <li>Implémentation de rôles utilisateur pour limiter les fonctionnalités en fonction des permissions d'accès. </li>
-​
+</ul>
 
 ## Technologies requises :
 
