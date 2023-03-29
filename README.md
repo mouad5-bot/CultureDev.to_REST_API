@@ -15,6 +15,6 @@ Nous recherchons une équipe de développeur pour développer une REST API - Cul
 
 ## Technologies requises :
 
-Laravel, PHP, MySQL, API REST, JSON, Documentation API (POSTMAN, OPEN API ou SWAGGER).
+Laravel, PHP, MySQL, API REST, JSON, Documentation API (POSTMAN).
 Authentification avec Laravel via (sanctum, jwt ou bien passport)
 Framework requise: soit Laravel ou Lumen
